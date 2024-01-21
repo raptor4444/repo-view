@@ -21,7 +21,7 @@ header {
 }
 
 #top-container {
-  background-color: #cefad0;
+  background-color: #e5fce6;
 }
 
 .repository-list {
@@ -88,7 +88,7 @@ header {
   margin-top: 20px;
   text-align: center;
   padding: 3rem 5rem;
-  background-color: #cefad0;
+  background-color: #e5fce6;
 }
 
 #page-info {
@@ -106,4 +106,8 @@ label[for="forked-filter"] {
 label[for="repo-limit"] {
   font-size: 1rem;
   padding-left: 1.5rem;
+}
+
+#pagination button {
+  background-color: white;
 }
