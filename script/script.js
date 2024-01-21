@@ -57,16 +57,18 @@ document.addEventListener("DOMContentLoaded", function () {
       const languageContainer = document.createElement("div");
       languageContainer.className = "repository-language";
 
-      const languages = repo.language
-        ? repo.language.split(",").slice(0, 4)
-        : [];
-
-      languages.forEach((language) => {
-        const languageButton = document.createElement("div");
-        languageButton.className = "language-button";
-        languageButton.textContent = language;
-        languageContainer.appendChild(languageButton);
-      });
+      // Fetch all languages used in the repository
+      fetch(repo.languages_url)
+        .then((response) => response.json())
+        .then((languages) => {
+          for (const language in languages) {
+            const languageButton = document.createElement("div");
+            languageButton.className = "language-button";
+            languageButton.textContent = `${language}: ${languages[language]}`;
+            languageContainer.appendChild(languageButton);
+          }
+        })
+        .catch((error) => console.error("Error fetching languages:", error));
 
       listItem.appendChild(languageContainer);
 
@@ -89,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function changePage(delta) {
     currentPage += delta;
 
-    // Ensure currentPage is within valid range
+    // Ensure currentPage is within a valid range
     if (currentPage < 1) {
       currentPage = 1;
     }

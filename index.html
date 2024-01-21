@@ -6,21 +6,22 @@
     <title>GitHub Repository Viewer</title>
     <link rel="stylesheet" href="stylesheet/style.css" />
   </head>
+
   <body>
     <header>
-      <h1>GitHub Repository Viewer</h1>
+      <h1>Repositories Listing</h1>
     </header>
 
-    <div class="container">
+    <div id="top-container" class="container">
       <div id="username-section">
         <h2>Repositories for <span id="username">raptor4444</span></h2>
         <form id="username-form">
-          <label for="new-username">Enter new username:</label>
+          <label for="new-username">Enter new username: </label>
           <input type="text" id="new-username" required />
-          <button type="submit">Change Username</button>
+          <button type="submit">Change</button>
         </form>
       </div>
-
+      <br />
       <div class="filter-section">
         <label for="repo-search">Search Repositories:</label>
         <input
@@ -28,7 +29,6 @@
           id="repo-search"
           placeholder="Enter repository name"
         />
-
         <label for="forked-filter">Filter by Forked:</label>
         <select id="forked-filter">
           <option value="all">All</option>
@@ -38,21 +38,23 @@
 
         <button id="apply-filters">Apply Filters</button>
       </div>
+    </div>
 
+    <div class="container">
       <ul class="repository-list" id="repository-list"></ul>
+    </div>
 
-      <div id="pagination">
-        <button id="prev-btn">Previous</button>
-        <span id="page-info"></span>
-        <button id="next-btn">Next</button>
-        <label for="repo-limit">Repositories per page:</label>
-        <select id="repo-limit">
-          <option value="10">10</option>
-          <option value="30">30</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-      </div>
+    <div id="pagination">
+      <button id="prev-btn">Previous</button>
+      <span id="page-info"></span>
+      <button id="next-btn">Next</button>
+      <label for="repo-limit">Repositories per page:</label>
+      <select id="repo-limit">
+        <option value="10">10</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
     </div>
 
     <script src="script/script.js"></script>
