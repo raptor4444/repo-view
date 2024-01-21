@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     )
       .then((response) => response.json())
       .then((data) => {
-        repositories = data; // Store fetched repositories
+        repositories = data;
 
         currentUsername = username;
         document.getElementById("username").innerText = currentUsername;
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function renderRepositories(repos) {
-    repoList.innerHTML = ""; // Clear previous list
+    repoList.innerHTML = "";
 
     repos.forEach((repo) => {
       const listItem = document.createElement("li");
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const languageContainer = document.createElement("div");
       languageContainer.className = "repository-language";
 
-      // Fetch all languages used in the repository
       fetch(repo.languages_url)
         .then((response) => response.json())
         .then((languages) => {
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function changePage(delta) {
     currentPage += delta;
 
-    // Ensure currentPage is within a valid range
     if (currentPage < 1) {
       currentPage = 1;
     }
@@ -141,6 +139,5 @@ document.addEventListener("DOMContentLoaded", function () {
   repoLimitSelect.addEventListener("change", changeRepoLimit);
   applyFiltersButton.addEventListener("click", applyFilters);
 
-  // Fetch repositories for the default username on page load
   updatePagination();
 });
