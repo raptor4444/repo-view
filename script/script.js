@@ -15,6 +15,27 @@ document.addEventListener("DOMContentLoaded", function () {
   let repoLimit = 10;
   let repositories = [];
 
+  function fetchUser(username) {
+    fetch(
+      `https://api.github.com/users/${username}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        repositories = data;
+
+        currentUsername = username;
+        document.getElementById("username").innerText = currentUsername;
+        // renderRepositories(data);
+
+        console.log(data.public_repos)
+        const totalPages = Math.ceil(data.public_repos / repoLimit);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }
+  
   function fetchRepositories(username, page, limit) {
     fetch(
       `https://api.github.com/users/${username}/repos?page=${page}&per_page=${limit}`
@@ -27,10 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("username").innerText = currentUsername;
         renderRepositories(data);
 
-        const totalPages = Math.ceil(data.length / repoLimit);
-        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages;
+        // console.log(data)
+        // const totalPages = Math.ceil(data.length / repoLimit);
+        // pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+        // prevBtn.disabled = currentPage === 1;
+        // nextBtn.disabled = currentPage === totalPages;
       })
       .catch((error) => console.error("Error fetching data:", error));
   }
@@ -85,21 +107,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function updatePagination() {
     currentPage = 1;
     fetchRepositories(currentUsername, currentPage, repoLimit);
+    fetchUser(currentUsername);
   }
 
   function changePage(delta) {
-    currentPage += delta;
+    currentPage = currentPage + delta;
 
-    if (currentPage < 1) {
-      currentPage = 1;
-    }
+    // if (currentPage < 1) {
+    //   currentPage = 1;
+    // }
 
     const totalPages = Math.ceil(repositories.length / repoLimit);
-    if (currentPage > totalPages) {
-      currentPage = totalPages;
-    }
+    // if (currentPage > totalPages) {
+    //   currentPage = totalPages;
+    // }
+
 
     fetchRepositories(currentUsername, currentPage, repoLimit);
+    fetchUser(currentUsername);
   }
 
   function changeRepoLimit() {
